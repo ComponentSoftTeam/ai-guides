@@ -1,1 +1,150 @@
-Placeholder for AI-434 guide
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/x-icon" href="./img/favicon.ico">
+  <title>AI-434 Environment Guide</title>
+  <link rel="stylesheet" href="./css/style.css">
+</head>
+
+<body>
+  <h1>AI-434 Environment Guide</h1>
+  <p>This tutorial will show you how to set up your environment and access our labfiles.</p>
+
+  <ul>
+    <li>
+      <p>
+        <a href="#lab">Remote Lab Environment (Guacamole)</a>: Access the virtual lab environment.
+        <span class="recommended-badge">RECOMMENDED</span>
+      </p>
+    </li>
+    <li>
+      <p>
+        <a href="#jupyter">JupyterLab</a>: Access the JupyterLab environment.
+      </p>
+    </li>
+  </ul>
+
+  <h2 id="lab">Remote Lab Environment (Guacamole)</h2>
+  <div class="recommendation-note">
+    <p><strong>Recommended approach:</strong> The Remote Lab Environment provides a complete, pre-configured setup with
+      all the necessary tools and dependencies. This is the recommended method for a smooth lab experience.</p>
+  </div>
+  <p>
+    This section shows you how to access our Remote Lab Environment (Guacamole).
+  </p>
+  <ol>
+    <li>
+      <p>
+        Go to the
+        <a id="guacamoleLink" target="_blank">Remote Lab login page</a>
+        and enter your credentials:
+      </p>
+      <ul id="credentialsList">
+        <!-- Credentials will be inserted here by JavaScript -->
+      </ul>
+    </li>
+    <img src="img/guacamole_login.png" alt="Guacamole login" />
+  </ol>
+  <p>
+    <b>Please carefully read the README file to learn about the structure of
+      the environment and how to navigate to the correct exercise files.</b>
+  </p>
+
+  <h2 id="jupyter">JupyterLab</h2>
+  <p>This section shows you how to access our JupyterLab environment.</p>
+  <ol>
+    <li>
+      <p>Access your JupyterLab environment: <a id="jupyterLink"></a></p>
+    </li>
+    <li>
+      <p>Input your password: <span id="jupyterPasswordContainer"></span></p>
+    </li>
+    <li>
+      <p>You can find all of the files once you have logged in. You will have a <b>solved</b> version for each modules
+        lab.</p>
+    </li>
+    <img src="img/jupyterlab.jpg" alt="" , height="100%" , width="100%">
+    <p>
+      <b>Notes:</b>
+    <ul>
+      <li>
+        <p>In Jupyter Notebooks, you have cells that you can run. These cells can be run in any order, but it is
+          recommended that you run all the cells starting from the first one.</p>
+      </li>
+      <li>
+        <p>
+          If you have an error that you can't fix, it is recommended that you <b>restart the kernel</b> and run the
+          cells again.
+        </p>
+      </li>
+    </ul>
+    </p>
+  </ol>
+
+  <h2>Troubleshooting</h2>
+  <ul>
+    <li>
+      <p>
+        <b>Testing icon is missing from Activity Bar:</b> You need to enable
+        or install the <b>Python extension</b> in VSCode.
+      </p>
+    </li>
+    <li>
+      <p>
+        <b>Jupyter Notebook errors:</b> Try restarting the kernel and running cells from the beginning.
+      </p>
+    </li>
+  </ul>
+
+  <script type="module">
+
+    import { getDefaultParameters, getGuacamoleLink, createCopiableElement, getJupyterLink } from './js/common.js';
+    
+    document.addEventListener('DOMContentLoaded', () => {
+      
+      const params = getDefaultParameters();
+      const guacamole_url = getGuacamoleLink(params);
+      const jupyter_url = getJupyterLink(params);
+
+      if (guacamole_url) {
+        document.getElementById('guacamoleLink').href = guacamole_url;
+        document.getElementById('guacamoleLink').innerText = 'Remote Lab login page';
+      } else {
+        document.getElementById('guacamoleLink').innerText = 'You can find the URL in your email';
+      }
+
+      // Create and append username element
+      const usernameElement = createCopiableElement('username', 'Username', params.guacamole_name);
+      const passwordElement = createCopiableElement('password', 'Password', params.pass);
+
+      const credentialsList = document.getElementById('credentialsList');
+      const usernameLi = document.createElement('li');
+      usernameLi.appendChild(usernameElement);
+      credentialsList.appendChild(usernameLi);
+
+      const passwordLi = document.createElement('li');
+      passwordLi.appendChild(passwordElement);
+      credentialsList.appendChild(passwordLi);
+
+      // JupyterLab setup
+      document.getElementById('jupyterPasswordContainer').appendChild(
+        createCopiableElement('jupyterPassword', 'Password', params.pass)
+      );
+
+
+      if (jupyter_url) {
+        document.getElementById('jupyterLink').href = jupyter_url;
+        document.getElementById('jupyterLink').innerText = 'Link to Jupyter';
+      } else {
+        document.getElementById('jupyterLink').innerText = 'You can find the URL in your email.';
+      }
+
+    });
+  </script>
+
+</body>
+
+</html>

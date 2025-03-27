@@ -1,1 +1,93 @@
-Placeholder for AI-151 guide
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/x-icon" href="./img/favicon.ico">
+  <title>AI-151 Environment Guide</title>
+  <link rel="stylesheet" href="./css/style.css">
+</head>
+
+<body>
+  <h1>AI-151 Environment Guide</h1>
+  <p>This tutorial will show you how to set up your environment and access our labfiles.</p>
+
+  <ul>
+    <li>
+      <p>
+        <a href="#lab">Remote Lab Environment (Guacamole)</a>: Access the virtual lab environment.
+        <span class="recommended-badge">RECOMMENDED</span>
+      </p>
+    </li>
+  </ul>
+
+  <h2 id="lab">Remote Lab Environment (Guacamole)</h2>
+  <div class="recommendation-note">
+    <p><strong>Recommended approach:</strong> The Remote Lab Environment provides a complete, pre-configured setup with
+      all the necessary tools and dependencies. This is the recommended method for a smooth lab experience.</p>
+  </div>
+  <p>
+    This section shows you how to access our Remote Lab Environment (Guacamole).
+  </p>
+  <ol>
+    <li>
+      <p>
+        Go to the
+        <a id="guacamoleLink" target="_blank">Remote Lab login page</a>
+        and enter your credentials:
+      </p>
+      <ul id="credentialsList">
+        <!-- Credentials will be inserted here by JavaScript -->
+      </ul>
+    </li>
+    <img src="img/guacamole_login.png" alt="Guacamole login" />
+  </ol>
+  <p>
+    <b>Please carefully read the README file to learn about the structure of
+      the environment and how to navigate to the correct exercise files.</b>
+  </p>
+
+  <h2>Troubleshooting</h2>
+  <ul>
+    <li>
+      <p>
+        <b>Testing icon is missing from Activity Bar:</b> You need to enable
+        or install the <b>Python extension</b> in VSCode.
+      </p>
+    </li>
+  </ul>
+
+  <script type="module">
+    import { getDefaultParameters, getGuacamoleLink, createCopiableElement } from './js/common.js';
+    
+    document.addEventListener('DOMContentLoaded', () => {
+      
+      const params = getDefaultParameters();
+      const guacamole_url = getGuacamoleLink(params);
+
+      if (guacamole_url) {
+        document.getElementById('guacamoleLink').href = guacamole_url;
+        document.getElementById('guacamoleLink').innerText = 'Remote Lab login page';
+      } else {
+        document.getElementById('guacamoleLink').innerText = 'You can find the URL in your email';
+      }
+
+      // Create and append username element
+      const usernameElement = createCopiableElement('username', 'Username', params.guacamole_name);
+      const passwordElement = createCopiableElement('password', 'Password', params.pass);
+
+      const credentialsList = document.getElementById('credentialsList');
+      const usernameLi = document.createElement('li');
+      usernameLi.appendChild(usernameElement);
+      credentialsList.appendChild(usernameLi);
+
+      const passwordLi = document.createElement('li');
+      passwordLi.appendChild(passwordElement);
+      credentialsList.appendChild(passwordLi);
+    });
+  </script>
+
+</body>
+
+</html>
