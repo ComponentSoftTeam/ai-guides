@@ -44,7 +44,7 @@ export function getGuacamoleLink(params) {
  */
 export function getJupyterLink(params) {
     if (!params?.domain || !params?.port) return null;
-    const machine_id = parseInt(params.port.slice(-2));
+    const machine_id = parseInt(params.port);
     if (isNaN(machine_id)) return null;
     return `https://${params.domain}/${machine_id}`;
 }
