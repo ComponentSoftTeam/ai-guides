@@ -55,33 +55,13 @@
 
   <script type="module">
 
-    import { getDefaultParameters, getGuacamoleLink, createCopiableElement, getJupyterLink } from './js/common.js';
+    import { getDefaultParameters, createCopiableElement, getJupyterLink } from './js/common.js';
     
     document.addEventListener('DOMContentLoaded', () => {
       
       const params = getDefaultParameters();
-      const guacamole_url = getGuacamoleLink(params);
       const jupyter_url = getJupyterLink(params);
 
-      if (guacamole_url) {
-        document.getElementById('guacamoleLink').href = guacamole_url;
-        document.getElementById('guacamoleLink').innerText = 'Remote Lab login page';
-      } else {
-        document.getElementById('guacamoleLink').innerText = 'You can find the URL in your email';
-      }
-
-      // Create and append username element
-      const usernameElement = createCopiableElement('username', 'Username', params.guacamole_name);
-      const passwordElement = createCopiableElement('password', 'Password', params.pass);
-
-      const credentialsList = document.getElementById('credentialsList');
-      const usernameLi = document.createElement('li');
-      usernameLi.appendChild(usernameElement);
-      credentialsList.appendChild(usernameLi);
-
-      const passwordLi = document.createElement('li');
-      passwordLi.appendChild(passwordElement);
-      credentialsList.appendChild(passwordLi);
 
       // JupyterLab setup
       document.getElementById('jupyterPasswordContainer').appendChild(
